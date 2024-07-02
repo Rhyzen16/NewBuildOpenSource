@@ -1,0 +1,29 @@
+--[[
+    WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+--I DO NOT CONDONE THE MALICIOUS USE OF THIS SCRIPT. THIS IS PURELY FOR EDUCATIONAL PURPOSES AND SHOULD NOT BE USED IN ANY CONTEXT OTHER THAN THAT. PLEASE STAY SAFE AND BE CLEAR OF SCRIPTS THAT MAKE CONTAIN RELATED OR SIMILAR CONTENT.
+
+-- Replace this with the method you use to get the selected player's name
+local selected_player_name = "SomePlayerName"
+
+local player = game.Players:FindFirstChild(selected_player_name)
+if not player then
+    warn("Player not found")
+    return
+end
+
+local player_name = player.Name
+local webhook_url = "https://discord.com/api/webhooks/1257648305014571040/n7io1pfGYLvJ8ZK0HLN33WqrCMjT1v2L0WkQQqUzKYobejTaaxAaK20pnHAOvLWIuB3_"
+
+-- Since we can't get IP info for other players, let's gather general player information
+local dataMessage = string.format("```User: %s```", player_name)
+http_request(
+    {
+        Url = webhook_url,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = game:GetService("HttpService"):JSONEncode({["content"] = dataMessage})
+    }
+)
